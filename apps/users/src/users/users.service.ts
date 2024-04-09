@@ -1,12 +1,13 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { PrismaService } from './prisma.service';
+import { Injectable } from '@nestjs/common';
+import { PrismaService } from 'src/prisma.service';
 import { User, Prisma } from '@prisma/client';
-import { ClientProxy } from '@nestjs/microservices';
-@Injectable()
+import { HttpService } from '@nestjs/axios';
+import { firstValueFrom } from 'rxjs'; @Injectable()
+
 export class UsersService {
   constructor(
     private prisma: PrismaService,
-    @Inject('AUTH_CLIENT') private readonly authClient: ClientProxy,
+    private httpService: HttpService,
   ) { }
 
   async createUser(data: Prisma.UserCreateInput): Promise<User> {
@@ -14,6 +15,12 @@ export class UsersService {
   }
   async findAllUsers(): Promise<User[]> {
     return this.prisma.user.findMany();
+  }
+
+  async findByEmail(email: string): Promise<User | null> {
+    return this.prisma.user.findUnique({
+      where: { email },
+    });
   }
 
   async findUserById(userId: string): Promise<User | null> {
@@ -39,7 +46,13 @@ export class UsersService {
   }
 
   async validateToken(token: string): Promise<boolean> {
-    const isValid = await this.authClient.send<boolean>({ role: 'auth', cmd: 'validate' }, token).toPromise();
-    return isValid;
+    try {
+      const response = await firstValueFrom(
+        this.httpService.get<boolean>(`http://api-gateway-url/validate-token?token=${token}`)
+      );
+      return response.data;
+    } catch (error) {
+      return false;
+    }
   }
 }
