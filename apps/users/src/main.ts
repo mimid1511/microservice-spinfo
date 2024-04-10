@@ -2,7 +2,7 @@
 require('dotenv').config();
 
 import { NestFactory } from '@nestjs/core';
-import { UsersModule } from './users.module';
+import { UsersModule } from './users/users.module';
 import { Transport } from '@nestjs/microservices';
 
 async function bootstrap() {

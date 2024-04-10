@@ -1,12 +1,13 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
-import { PrismaService } from './prisma.service';
+import { PrismaService } from '../prisma.service';
 // import { ConfigModule } from '@nestjs/config';
 // import { ClientsModule, Transport } from '@nestjs/microservices';
+import { AuthModule } from '../auth/auth.module';
 
 @Module({
-  imports: [],
+  imports: [UsersModule, forwardRef(() => AuthModule)],
   // ClientsModule.register([
   //   {
   //     name: 'AUTH_CLIENT',
@@ -19,5 +20,6 @@ import { PrismaService } from './prisma.service';
   // ]),],
   controllers: [UsersController],
   providers: [UsersService, PrismaService],
+  exports: [UsersService],
 })
 export class UsersModule { }
