@@ -1,12 +1,14 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { PrismaService } from './prisma.service';
 import { User, Prisma } from '@prisma/client';
-import { ClientProxy } from '@nestjs/microservices';
+// import { ClientProxy } from '@nestjs/microservices';
+import axios from 'axios';
+
 @Injectable()
 export class UsersService {
   constructor(
     private prisma: PrismaService,
-    @Inject('AUTH_CLIENT') private readonly authClient: ClientProxy,
+    // @Inject('AUTH_CLIENT') private readonly authClient: ClientProxy,
   ) { }
 
   async createUser(data: Prisma.UserCreateInput): Promise<User> {
@@ -39,7 +41,18 @@ export class UsersService {
   }
 
   async validateToken(token: string): Promise<boolean> {
-    const isValid = await this.authClient.send<boolean>({ role: 'auth', cmd: 'validate' }, token).toPromise();
-    return isValid;
+    try {
+      const response = await axios.get('http://localhost:3001/auth/validate', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return response.data.isValid;
+    } catch (error) {
+      console.error('Token validation error:', error);
+      return false;
+    }
+    // const isValid = await this.authClient.send<boolean>({ role: 'auth', cmd: 'validate' }, token).toPromise();
+    // return isValid;
   }
 }
