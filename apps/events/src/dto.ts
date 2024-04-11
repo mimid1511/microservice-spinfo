@@ -1,4 +1,7 @@
+import { ApiProperty } from '@nestjs/swagger';
+
 export class CreateEventDto {
+  @ApiProperty({ example: 'Event Name', description: 'Name of the Event' })
   readonly name: string;
   readonly location: string;
   readonly maximum_places: number;
