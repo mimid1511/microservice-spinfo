@@ -3,7 +3,6 @@ require('dotenv').config();
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { NestFactory } from '@nestjs/core';
 import { EventsModule } from './events.module';
-import { Transport } from '@nestjs/microservices';
 
 async function bootstrap() {
   const app = await NestFactory.create(EventsModule);
@@ -15,14 +14,8 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
-  app.connectMicroservice({
-    transport: Transport.TCP,
-    options: {
-      host: 'localhost',
-      port: 3001,
-    },
-  });
-  await app.startAllMicroservices();
+
   await app.listen(3003);
+  console.log(`Event management app is running on port 3003`);
 }
 bootstrap();

@@ -16,6 +16,11 @@ export class EventsController {
     return this.eventsService.createEvent(createEventDto);
   }
 
+  @Get('user/:userId')
+  async findUserFromUserService(@Param('userId') userId: string, token: string) {
+    return this.eventsService.getUserFromUserService(userId, token);
+  }
+
   @Get()
   @ApiOperation({ summary: 'Get all events' })
   findAll() {

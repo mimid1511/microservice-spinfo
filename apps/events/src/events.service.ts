@@ -1,13 +1,26 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { PrismaService } from './prisma.service';
 import { Event, Prisma } from '@prisma/client';
-import { ClientProxy } from '@nestjs/microservices';
+import axios from 'axios';
+
 @Injectable()
 export class EventsService {
   constructor(
     private prisma: PrismaService,
-    @Inject('AUTH_CLIENT') private readonly authClient: ClientProxy,
   ) { }
+
+  async getUserFromUserService(userId: string, token: string): Promise<any> {
+    try {
+      const response = await axios.get(`${process.env.USER_SERVICE_URL}/users/${userId}`);
+      {
+        `Bearer ${token}`
+      }
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching user:', error);
+      throw new InternalServerErrorException('User service is offline.');
+    }
+  }
 
   async createEvent(data: Prisma.EventCreateInput): Promise<Event> {
     return this.prisma.event.create({ data });
@@ -18,7 +31,7 @@ export class EventsService {
 
   async findEventsById(id: string): Promise<Event | null> {
     return this.prisma.event.findUnique({
-      where: { eventId : id },
+      where: { eventId: id },
     });
   }
 
@@ -27,19 +40,14 @@ export class EventsService {
     data: Prisma.EventUpdateInput,
   ): Promise<Event> {
     return this.prisma.event.update({
-      where: { eventId : id },
+      where: { eventId: id },
       data,
     });
   }
 
   async deleteEvent(id: string): Promise<Event> {
     return this.prisma.event.delete({
-      where: { eventId : id },
+      where: { eventId: id },
     });
-  }
-
-  async validateToken(token: string): Promise<boolean> {
-    const isValid = await this.authClient.send<boolean>({ role: 'auth', cmd: 'validate' }, token).toPromise();
-    return isValid;
   }
 }
