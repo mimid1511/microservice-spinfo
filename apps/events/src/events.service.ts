@@ -9,19 +9,6 @@ export class EventsService {
     private prisma: PrismaService,
   ) { }
 
-  async getUserFromUserService(userId: string, token: string): Promise<any> {
-    try {
-      const response = await axios.get(`${process.env.USER_SERVICE_URL}/users/${userId}`);
-      {
-        `Bearer ${token}`
-      }
-      return response.data;
-    } catch (error) {
-      console.error('Error fetching user:', error);
-      throw new InternalServerErrorException('User service is offline.');
-    }
-  }
-
   async createEvent(data: Prisma.EventCreateInput): Promise<Event> {
     return this.prisma.event.create({ data });
   }
