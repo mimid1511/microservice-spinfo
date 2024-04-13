@@ -18,7 +18,7 @@ model User {
   name        String
   email       String   @unique
   password    String
-  role        String   @default("USER")
+  role        String[] @default(["USER"])
   tickets     String[]
   eventsAdmin String[]
 }

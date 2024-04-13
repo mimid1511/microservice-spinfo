@@ -8,6 +8,7 @@ export class UpdateUserDto {
   name?: string;
   email?: string;
   password?: string;
-  role?: string;
+  role?: string[];
   tickets?: string[];
+  eventsAdmin?: string[]
 }

@@ -1,5 +1,5 @@
 import { Module, forwardRef } from '@nestjs/common';
-import { JwtModule } from '@nestjs/jwt';
+import { JwtModule, JwtService } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
@@ -17,8 +17,8 @@ import { JwtAuthGuard } from './jwt-auth.guard';
       signOptions: { expiresIn: '60s' },
     }),
   ],
-  providers: [AuthService, JwtStrategy, LocalStrategy, JwtAuthGuard],
+  providers: [AuthService, JwtStrategy, LocalStrategy],
   controllers: [AuthController],
-  exports: [AuthService, JwtAuthGuard],
+  exports: [AuthService],
 })
 export class AuthModule { }

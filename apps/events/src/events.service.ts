@@ -1,7 +1,7 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { PrismaService } from './prisma.service';
 import { Event, Prisma } from '@prisma/client';
-import axios from 'axios';
+// import axios from 'axios';
 
 @Injectable()
 export class EventsService {
@@ -9,22 +9,21 @@ export class EventsService {
     private prisma: PrismaService,
   ) { }
 
-  async getUserFromUserService(userId: string, token: string): Promise<any> {
-    try {
-      const response = await axios.get(`${process.env.USER_SERVICE_URL}/users/${userId}`);
-      {
-        `Bearer ${token}`
-      }
-      return response.data;
-    } catch (error) {
-      console.error('Error fetching user:', error);
-      throw new InternalServerErrorException('User service is offline.');
-    }
-  }
 
   async createEvent(data: Prisma.EventCreateInput): Promise<Event> {
-    return this.prisma.event.create({ data });
+    const event = await this.prisma.event.create({ data });
+    try {
+      return this.prisma.event.create({ data });
+    } catch (error) {
+      console.error('Failed to add event to user:', error.message);
+      throw new InternalServerErrorException('Failed to link event to the user.');
+    }
+    return event;
   }
+
+  // async createEvent(data: Prisma.EventCreateInput): Promise<Event> {
+  //   return this.prisma.event.create({ data });
+  // }
   async findAllEvents(): Promise<Event[]> {
     return this.prisma.event.findMany();
   }
@@ -50,4 +49,17 @@ export class EventsService {
       where: { eventId: id },
     });
   }
+
+  // async getUserFromUserService(userId: string, token: string): Promise<any> {
+  //   try {
+  //     const response = await axios.get(`${process.env.USER_SERVICE_URL}/users/${userId}`);
+  //     {
+  //       `Bearer ${token}`
+  //     }
+  //     return response.data;
+  //   } catch (error) {
+  //     console.error('Error fetching user:', error);
+  //     throw new InternalServerErrorException('User service is offline.');
+  //   }
+  // }
 }
