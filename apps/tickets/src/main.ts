@@ -16,6 +16,6 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
 
   await app.listen(3004);
-  console.log(`Ticket management app is running on port 3003`);
+  console.log(`Ticket management app is running on port 3004`);
 }
 bootstrap();

@@ -1,44 +1,43 @@
-import { Controller, Get, Post, Body, Param, Delete, Put, HttpCode, HttpStatus, UseGuards } from '@nestjs/common';
-import { EventsService } from './tickets.service';
-import { CreateEventDto, UpdateEventDto } from './dto';
+import { Controller, Get, Post, Body, Param, Delete, Put, HttpCode, HttpStatus } from '@nestjs/common';
+import { TicketsService } from './tickets.service';
+import { CreateTicketDto, UpdateTicketDto } from './dto';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 
-@ApiTags('events')
-@Controller('events')
+@ApiTags('tickets')
+@Controller('tickets')
 export class TicketsController {
-  constructor(private readonly eventsService: EventsService) { }
+  constructor(private readonly ticketsService: TicketsService) { }
 
   @Post()
   @ApiOperation({ summary: 'Create event' })
   @ApiResponse({ status: 201, description: 'The event has been successfully created.' })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
-  create(@Body() createEventDto: CreateEventDto) {
-    return this.eventsService.createEvent(createEventDto);
+  create(@Body() createEventDto: CreateTicketDto) {
+    return this.ticketsService.createTicket(createEventDto);
   }
 
   @Get()
-  @ApiOperation({ summary: 'Get all events' })
+  @ApiOperation({ summary: 'Get all tickets' })
   findAll() {
-    return this.eventsService.findAllEvents();
+    return this.ticketsService.findAllTickets();
   }
 
-  // @UseGuards(JwtAuthGuard)
   @Get(':id')
   @ApiOperation({ summary: 'Get an event by ID' })
   findOne(@Param('id') id: string) {
-    return this.eventsService.findEventsById(id);
+    return this.ticketsService.findTicketsById(id);
   }
 
   @Put(':id')
   @ApiOperation({ summary: 'Update an event' })
-  update(@Param('id') id: string, @Body() updateEventDto: UpdateEventDto) {
-    return this.eventsService.updateEvent(id, updateEventDto);
+  update(@Param('id') id: string, @Body() updateEventDto: UpdateTicketDto) {
+    return this.ticketsService.updateTicket(id, updateEventDto);
   }
 
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: 'Delete an event' })
   remove(@Param('id') id: string) {
-    return this.eventsService.deleteEvent(id);
+    return this.ticketsService.deleteTicket(id);
   }
 }

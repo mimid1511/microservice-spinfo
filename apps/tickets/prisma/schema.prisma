@@ -14,8 +14,8 @@ datasource db {
 }
 
 model Ticket {
-  ticketId        String   @id @default(auto()) @map("_id") @db.ObjectId
-  eventId           String
-  userId       String
-  number Int
+  ticketId String @id @default(auto()) @map("_id") @db.ObjectId
+  eventId  String
+  userId   String
+  number   Int
 }
