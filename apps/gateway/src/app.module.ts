@@ -4,13 +4,20 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { EventsModule } from './events/events.module';
 // import { AuthController } from './auth/auth.controller';
-import { AuthService } from './auth/auth.service';
+// import { AuthService } from './auth/auth.service';
 import { AuthModule } from './auth/auth.module';
-import { LocalStrategy } from './auth/local.strategy';
+// import { LocalStrategy } from './auth/local.strategy';
 import { PassportModule } from '@nestjs/passport';
+import { TicketsModule } from './tickets/tickets.module';
 
 @Module({
-  imports: [UsersModule, EventsModule, AuthModule, PassportModule],
+  imports: [
+    UsersModule,
+    EventsModule,
+    AuthModule,
+    PassportModule,
+    TicketsModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

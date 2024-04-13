@@ -6,16 +6,15 @@ import {
   Param,
   Delete,
   Put,
-  HttpCode,
-  HttpStatus,
   UseGuards,
-  Headers,
 } from '@nestjs/common';
 import { EventsService } from './events.service';
 import { RolesGuard } from 'src/auth/roles.guard';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { Roles } from 'src/common/decorators/roles.decorator';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Events')
 @Controller('events')
 export class EventsController {
   constructor(private readonly eventsService: EventsService) { }
