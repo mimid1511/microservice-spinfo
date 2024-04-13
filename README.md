@@ -2,11 +2,11 @@
 The is an academic project realized by Mohamed Daadaa and Mohamed Amine Benfrid.
 
 Due to lack of time, some functionalities were implemented and then commented because they crash all of our services.
-We kept the solution commented so that it traces our work.
-For eample, authorization and authentification worked with user microservice. But when i tried it in the gateway, it doesn't authorize requests
+For example, For the paiement, it is supposed to be an endpoint that manages paiement and it's verified when buying a ticket. To do that, we simulate a paiement variable instead of the endpoint.
+Similarly for sending an email when a person buys a ticket.
 
 ## architecture model
-We have implemented a simple microservice solution for a event managing app.
+We have implemented a simple microservice solution for an event managing app.
 ![image](https://github.com/mimid1511/microservice-spinfo/assets/77280622/d6c96f5c-42c5-44bb-b8ae-1bc83d6ce27a)
 
 
