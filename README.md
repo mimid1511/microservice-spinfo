@@ -1,5 +1,8 @@
 # booking-4WEBD
-The is an academic project realized by Mohamed Daadaa and Mohamed Amine Benfrid
+The is an academic project realized by Mohamed Daadaa and Mohamed Amine Benfrid.
+
+Due to lack of time, some functionalities were implemented and then commented because they crash all of our services.
+We kept the solution commented so that it traces our work.
 
 ## architecture model
 We have implemented a simple microservice solution for a event managing app.
