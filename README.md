@@ -43,16 +43,19 @@ npm start
 T2:
 ```bash
 cd apps/users
+npm i
 npm start
 ```
 T3:
 ```bash
 cd apps/tickets
+npm i
 npm start
 ```
 T4:
 ```bash
 cd appps/gateway
+npm i
 npm start
 ```
 then access to localhost/3030/
