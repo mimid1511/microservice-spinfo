@@ -1,0 +1,34 @@
+version: '3.8'
+services:
+  event:
+    build:
+      context: ./apps/events
+    environment:
+      - DATABASE_URL=mongodb+srv://daadaamed:ZzQoHzZm7mdeAoMP@users.8ltf5ky.mongodb.net/Events-4webd
+    ports:
+      - "3003:3003"
+
+  user:
+    build:
+      context: ./apps/users
+    environment:
+      - DATABASE_URL=mongodb+srv://daadaamed:ZzQoHzZm7mdeAoMP@users.8ltf5ky.mongodb.net/Users-4webd
+    ports:
+      - "3002:3002"
+
+  tickets:
+    build:
+      context: ./apps/tickets
+    environment:
+      - DATABASE_URL=mongodb+srv://daadaamed:ZzQoHzZm7mdeAoMP@users.8ltf5ky.mongodb.net/Tickets-4webd
+    ports:
+      - "3004:3004"
+
+  user-db:
+    image: mongo:latest
+    volumes:
+      - user-db-volume:/data/db
+
+volumes:
+  user-db-volume: {}
+
