@@ -52,3 +52,7 @@ cd appps/gateway
 npm start
 ```
 then access to localhost/3030/
+
+#### docker
+The built of images works fine. However, we got this problem when we launch ``` docker-compose up``` 
+![image](https://github.com/mimid1511/microservice-spinfo/assets/77280622/213db437-5cd8-450b-85d7-cee508b9c3cb)
