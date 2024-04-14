@@ -6,7 +6,7 @@ const Navbar = () => {
     <nav style={{ backgroundColor: 'whitesmoke', padding: '10px', textAlign: 'center' }}>
       <h1 style={{ margin: 0 }}>Reservation</h1>
       <div>
-        <Link to="/">Accueil</Link>
+        <Link to="/home">Accueil</Link>
         <Link to="/profil" style={{ marginLeft: '10px' }}>Profil</Link>
       </div>
     </nav>
