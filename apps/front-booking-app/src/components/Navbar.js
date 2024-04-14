@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'; // Assurez-vous que votre application u
 const Navbar = () => {
   return (
     <nav style={{ backgroundColor: 'whitesmoke', padding: '10px', textAlign: 'center' }}>
-      <h1 style={{ margin: 0 }}>Reservation</h1>
+      <h1 style={{ margin: 0 , fontWeight: 'bold', fontSize : '25px' }}>Reservation</h1>
       <div>
         <Link to="/home">Accueil</Link>
         <Link to="/profil" style={{ marginLeft: '10px' }}>Profil</Link>
