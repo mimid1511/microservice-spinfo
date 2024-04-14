@@ -1,5 +1,21 @@
 version: '3.8'
 services:
+  gateway:
+    build:
+      context: ./apps/gateway
+    volumes:
+      - ./apps/gateway:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - "3030:3030"
+    depends_on:
+      - event
+      - user
+      - tickets
+    environment:
+      - EVENTS_SERVICE_URL=http://event:3003
+      - USERS_SERVICE_URL=http://user:3020
+      - TICKETS_SERVICE_URL=http://tickets:3040
   event:
     build:
       context: ./apps/events
@@ -14,7 +30,7 @@ services:
     environment:
       - DATABASE_URL=mongodb+srv://daadaamed:ZzQoHzZm7mdeAoMP@users.8ltf5ky.mongodb.net/Users-4webd
     ports:
-      - "3002:3002"
+      - "3020:3020"
 
   tickets:
     build:
@@ -22,7 +38,7 @@ services:
     environment:
       - DATABASE_URL=mongodb+srv://daadaamed:ZzQoHzZm7mdeAoMP@users.8ltf5ky.mongodb.net/Tickets-4webd
     ports:
-      - "3004:3004"
+      - "3040:3040"
 
   user-db:
     image: mongo:latest

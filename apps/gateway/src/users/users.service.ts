@@ -3,7 +3,7 @@ import axios from 'axios';
 
 @Injectable()
 export class UsersService {
-  private userServiceUrl = 'http://localhost:3000/users';
+  private userServiceUrl = 'http://localhost:3020/users';
 
   async getAllUsers() {
     try {

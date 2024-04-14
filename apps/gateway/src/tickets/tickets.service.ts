@@ -3,7 +3,7 @@ import axios from 'axios';
 
 @Injectable()
 export class TicketsService {
-  private ticketsServiceUrl = 'http://localhost:3004/tickets';
+  private ticketsServiceUrl = 'http://localhost:3040/tickets';
 
   async createTicket(createTicketDto: any): Promise<any> {
     // const paymentResult = await this.paymentsService.processPayment(ticketData.creditCardNumber, ticketData.amount);
