@@ -28,3 +28,18 @@ Once a user is identified, our system then checks if the user has the necessary 
 Certain endpoints, like user registration, are public and do not require a token. These are marked with a @Public() decorator to bypass usual security checks, allowing anyone to access them without logging in.
 
 ## launch project
+#### local
+start each microservice separately. you need for terminals:
+T1:
+cd apps/events
+npm start
+T2:
+cd apps/users
+npm start
+T3:
+cd apps/tickets
+npm start
+T4:
+cd appps/gateway
+npm start
+then access to localhost/3030/
