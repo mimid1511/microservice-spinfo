@@ -14,6 +14,10 @@ We have implemented a simple microservice solution for an event managing app.
 We have 3 db tables, they run all in the same mongoDB project ( each DB is connected separately through its microservice). So each of the DB has its own different connection string even tho they share the same cluster.
 ![image](https://github.com/mimid1511/microservice-spinfo/assets/77280622/cd764bbd-d783-4465-8c9b-12ce5f702ef1)
 
+## Demo app
+https://github.com/mimid1511/microservice-spinfo/assets/77280622/75ce2d17-4f6b-45d8-bbc9-5af12379d696
+
+
 
 ## Documentation
 We used swagger for documentation, it's provided by visiting  {base_url}/api
