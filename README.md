@@ -53,6 +53,14 @@ npm start
 ```
 then access to localhost/3030/
 
+for the front-end(still under construction, manages events and simulate a reservation for a ticket):
+another terminal:
+T5:
+```bash
+cd appps/front-booking-app
+npm start
+```
+
 #### docker
 The built of images works fine. However, we got this problem when we launch ``` docker-compose up``` 
 ![image](https://github.com/mimid1511/microservice-spinfo/assets/77280622/213db437-5cd8-450b-85d7-cee508b9c3cb)
