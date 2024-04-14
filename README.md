@@ -28,3 +28,31 @@ Once a user is identified, our system then checks if the user has the necessary 
 Certain endpoints, like user registration, are public and do not require a token. These are marked with a @Public() decorator to bypass usual security checks, allowing anyone to access them without logging in.
 
 ## launch project
+#### local
+start each microservice separately. you need for terminals:
+
+T1:
+```bash
+cd apps/events
+npm start
+```
+T2:
+```bash
+cd apps/users
+npm start
+```
+T3:
+```bash
+cd apps/tickets
+npm start
+```
+T4:
+```bash
+cd appps/gateway
+npm start
+```
+then access to localhost/3030/
+
+#### docker
+The built of images works fine. However, we got this problem when we launch ``` docker-compose up``` 
+![image](https://github.com/mimid1511/microservice-spinfo/assets/77280622/213db437-5cd8-450b-85d7-cee508b9c3cb)
