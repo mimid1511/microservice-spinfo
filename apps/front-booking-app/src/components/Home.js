@@ -1,13 +1,25 @@
-import React from 'react';
-import EventTable from './Table';
+import React, { useState, useEffect } from 'react';
+import EventTable from './EventTable';
 import Navbar from './Navbar';
 
 function Home() {
-  const events = [
-    { id: 1, nom: 'Événement 1', location: 'Lieu 1', nombreDePlaces: 100 },
-    { id: 2, nom: 'Événement 2', location: 'Lieu 2', nombreDePlaces: 50 },
-    { id: 3, nom: 'Événement 3', location: 'Lieu 3', nombreDePlaces: 200 },
-  ];
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const response = await fetch('http://localhost:3030/events');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        setEvents(data);
+      } catch (error) {
+        console.error('There was a problem with fetching events:', error);
+      }
+    };
+    fetchEvents();
+  }, []);
 
   return (
     <div className="min-h-screen text-gray-900 bg-gray-100">

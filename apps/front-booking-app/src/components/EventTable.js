@@ -1,10 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { PaymentModal } from './PaymentModal';
+import { jwtDecode } from 'jwt-decode';
 
 const EventTable = ({ events, userId = 123 }) => { // Simulate user ID
   const [reservations, setReservations] = useState({});
   const [showModal, setShowModal] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        const decoded = jwtDecode(token);
+        setIsAdmin(decoded.role.includes('ADMIN')); // Assuming role is an array
+      } catch (error) {
+        console.error('Error decoding token:', error);
+      }
+    }
+  }, []);
 
   const handleInputChange = (event, eventName) => {
     const { value } = event.target;
@@ -47,10 +61,11 @@ const EventTable = ({ events, userId = 123 }) => { // Simulate user ID
         </thead>
         <tbody>
           {events.map((event) => (
-            <tr key={event.id} className="bg-white border-b">
-              <td className="px-4 py-2">{event.nom}</td>
+            <tr key={event.eventId} className="bg-white border-b">
+              <td className="px-4 py-2">{event.name}</td>
               <td className="px-4 py-2">{event.location}</td>
-              <td className="px-4 py-2">{event.nombreDePlaces}</td>
+              <td className="px-4 py-2">{event.maximum_places - event.places_sold}</td>
+              <td className="px-4 py-2">{`$${event.price.toFixed(2)}`}</td>
               <td className="flex items-center px-4 py-2 space-x-2">
                 <input
                   type="number"
@@ -66,6 +81,16 @@ const EventTable = ({ events, userId = 123 }) => { // Simulate user ID
                 >
                   Réserver
                 </button>
+                {isAdmin && (
+                  <>
+                    <button className="px-4 py-1 font-bold text-white bg-green-500 rounded hover:bg-green-700">
+                      Update
+                    </button>
+                    <button className="px-4 py-1 font-bold text-white bg-red-500 rounded hover:bg-red-700">
+                      Delete
+                    </button>
+                  </>
+                )}
               </td>
             </tr>
           ))}
