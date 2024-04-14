@@ -15,7 +15,7 @@ We have 3 db tables, they run all in the same mongoDB project ( each DB is conne
 ![image](https://github.com/mimid1511/microservice-spinfo/assets/77280622/cd764bbd-d783-4465-8c9b-12ce5f702ef1)
 
 ## Demo app
-https://github.com/mimid1511/microservice-spinfo/assets/77280622/75ce2d17-4f6b-45d8-bbc9-5af12379d696
+https://github.com/mimid1511/microservice-spinfo/assets/77280622/bf741c26-99a8-4f90-a9ff-87cebed900f8
 
 
 
