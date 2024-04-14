@@ -1,20 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { jwtDecode } from 'jwt-decode';
 
-export const PaymentModal = ({ isOpen, onClose, onConfirm, eventId, userId }) => {
+export const PaymentModal = ({ isOpen, onClose, onConfirm, eventId, userId, userEmail }) => {
   const [cardNumber, setCardNumber] = useState('');
   const [message, setMessage] = useState('');
   const [processing, setProcessing] = useState(false);
   const [loading, setLoading] = useState(false);
 
+
   const handlePaymentConfirmation = async () => {
     setLoading(true);
     setProcessing(true);
     setMessage('');
+
+
     try {
       const result = await simulatePayment(cardNumber);
       setLoading(false);
       if (result.success) {
-        setMessage("You will receive an email confirmation.");
+        setMessage(`An email confirmation is sent to ${userEmail}.`);
 
         setTimeout(() => {
           onConfirm();

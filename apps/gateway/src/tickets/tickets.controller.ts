@@ -11,20 +11,14 @@ import { TicketsService } from './tickets.service';
 import { Roles } from 'src/common/decorators/roles.decorator';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { RolesGuard } from 'src/auth/roles.guard';
-import {
-  ApiTags,
-  ApiOperation,
-  ApiBody,
-  ApiParam,
-  ApiResponse,
-} from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiParam, ApiResponse } from '@nestjs/swagger';
 
 @ApiTags('Tickets')
 @Controller('tickets')
 export class TicketsController {
   constructor(private readonly ticketsService: TicketsService) { }
 
-  @Post(':userId')
+  @Post()
   async create(@Body() createTicketDto: any) {
     return this.ticketsService.createTicket(createTicketDto);
   }

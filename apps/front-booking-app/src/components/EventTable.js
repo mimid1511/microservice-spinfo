@@ -7,34 +7,47 @@ const EventTable = ({ events, userId = 123 }) => { // Simulate user ID
   const [showModal, setShowModal] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [userEmail, setUserEmail] = useState('');
 
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
       try {
         const decoded = jwtDecode(token);
-        setIsAdmin(decoded.role.includes('ADMIN')); // Assuming role is an array
+        setIsAdmin(decoded.role.includes('ADMIN'));
+        setUserEmail(decoded.email);
+        console.log(decoded, decoded.email, userEmail);
       } catch (error) {
         console.error('Error decoding token:', error);
       }
     }
   }, []);
 
-  const handleInputChange = (event, eventName) => {
+  useEffect(() => {
+    if (userEmail) {
+      console.log("Updated userEmail:", userEmail);
+    }
+  }, [userEmail]);
+
+  useEffect(() => {
+    const initialReservations = events.reduce((acc, event) => ({
+      ...acc,
+      [event.nom]: 0
+    }), {});
+    setReservations(initialReservations);
+  }, [events]);
+
+  const handleInputChange = (event, eventId) => {
     const { value } = event.target;
     setReservations(prevState => ({
       ...prevState,
-      [eventName]: value
+      [eventId]: value
     }));
   };
 
   const handleReserveClick = (event) => {
-    if (parseInt(reservations[event.nom]) > 0) {
-      setSelectedEvent(event);
-      setShowModal(true);
-    } else {
-      alert('Please enter a valid number of places to reserve.');
-    }
+    setSelectedEvent(event);
+    setShowModal(true);
   };
 
   const handleModalClose = () => {
@@ -71,8 +84,8 @@ const EventTable = ({ events, userId = 123 }) => { // Simulate user ID
                   type="number"
                   min="0"
                   max={event.nombreDePlaces}
-                  value={reservations[event.nom] || 0}
-                  onChange={(e) => handleInputChange(e, event.nom)}
+                  value={reservations[event.eventId] || 0}
+                  onChange={(e) => handleInputChange(e, event.eventId)}
                   className="w-20 px-2 py-1 border rounded shadow-inner"
                 />
                 <button
@@ -103,6 +116,7 @@ const EventTable = ({ events, userId = 123 }) => { // Simulate user ID
           onConfirm={handleConfirmPayment}
           eventId={selectedEvent.id}
           userId={userId}
+          userEmail={userEmail}
         />
       )}
     </div>
