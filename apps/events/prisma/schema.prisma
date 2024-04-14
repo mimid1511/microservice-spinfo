@@ -18,7 +18,8 @@ model Event {
   name           String
   location       String
   maximum_places Int
-  places_sold    Int
+  places_sold    Int      @default(0)
   price          Float
+  manager        String
   tickets        String[]
 }

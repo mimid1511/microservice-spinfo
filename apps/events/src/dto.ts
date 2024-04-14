@@ -7,7 +7,7 @@ export class CreateEventDto {
   readonly maximum_places: number;
   readonly places_sold: number;
   readonly price: number;
-  readonly tickets: string[];
+  readonly manager: string;
 }
 
 export class UpdateEventDto {
@@ -17,4 +17,5 @@ export class UpdateEventDto {
   places_sold?: number;
   price?: number;
   tickets?: string[];
+  manager?: string;
 }

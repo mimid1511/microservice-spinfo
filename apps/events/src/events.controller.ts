@@ -1,14 +1,14 @@
 import { Controller, Get, Post, Body, Param, Delete, Put, HttpCode, HttpStatus } from '@nestjs/common';
 import { EventsService } from './events.service';
 import { CreateEventDto, UpdateEventDto } from './dto';
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiBody } from '@nestjs/swagger';
 
 @ApiTags('events')
 @Controller('events')
 export class EventsController {
   constructor(private readonly eventsService: EventsService) { }
 
-  @Post(':userId')
+  @Post()
   @ApiOperation({ summary: 'Create event' })
   @ApiResponse({ status: 201, description: 'The event has been successfully created.' })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
@@ -18,6 +18,9 @@ export class EventsController {
 
   @Get()
   @ApiOperation({ summary: 'Get all events' })
+  @ApiBody({ description: 'Event creation data', type: Object }) // Specify the DTO class for better documentation
+  @ApiResponse({ status: 201, description: 'Event created successfully.' })
+  @ApiResponse({ status: 400, description: 'Bad request.' })
   findAll() {
     return this.eventsService.findAllEvents();
   }
