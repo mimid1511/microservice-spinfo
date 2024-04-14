@@ -16,7 +16,7 @@ We have 3 db tables, they run all in the same mongoDB project ( each DB is conne
 
 
 ## Documentation
-We used swagger for documentation, it's provided by visiting <url-microservice>/api
+We used swagger for documentation, it's provided by visiting  {base_url}/api
 
 ## Authentication and Authorization
 #### Authentication:
