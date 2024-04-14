@@ -30,16 +30,25 @@ Certain endpoints, like user registration, are public and do not require a token
 ## launch project
 #### local
 start each microservice separately. you need for terminals:
+
 T1:
+```bash
 cd apps/events
 npm start
+```
 T2:
+```bash
 cd apps/users
 npm start
+```
 T3:
+```bash
 cd apps/tickets
 npm start
+```
 T4:
+```bash
 cd appps/gateway
 npm start
+```
 then access to localhost/3030/
